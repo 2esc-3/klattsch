@@ -219,21 +219,52 @@ h1 {
   color: var(--fg);
 }
 
-.ja-greeting {
+.thank-you {
   margin: 0 0 1rem;
   padding: 0.55rem 0.85rem;
   border: 1px dashed var(--line);
   border-radius: 3px;
   font-size: 0.85rem;
-  line-height: 1.7;
+  line-height: 1.65;
   color: var(--dim);
+}
+.thank-you details + details {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--line);
+}
+.thank-you summary {
+  cursor: pointer;
+  list-style: none;
+}
+.thank-you summary::-webkit-details-marker { display: none; }
+.thank-you details > p {
+  margin: 0.4rem 0 0;
+}
+.thank-you-ja {
   font-family: ui-sans-serif, "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
 }
-.ja-greeting p { margin: 0; }
-.ja-greeting p + p { margin-top: 0.25rem; }
-.ja-greeting strong {
+.thank-you strong {
   color: var(--fg);
   font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .thank-you {
+    font-size: 0.8rem;
+    line-height: 1.55;
+    padding: 0.45rem 0.7rem;
+  }
+  .thank-you summary {
+    list-style: revert;
+  }
+  .thank-you summary::-webkit-details-marker { display: revert; }
+  .thank-you summary::after {
+    content: "";
+  }
+  .thank-you details:not([open]) summary {
+    opacity: 0.85;
+  }
 }
 
 .outro {
