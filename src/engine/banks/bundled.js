@@ -9,8 +9,7 @@ export const bundled = {
     "language": "ja-JP",
     "license": "MIT",
     "extends": "klatt1980-en",
-    "source": "Vowel formant values contributed by .hecko on the klattsch Discord, May 2026, and submitted to the project by RAYTRAC3R (Sami) in PR #59. Alveolar tap (DX) iterated by RAYTRAC3R; the kept variant (formerly DXE in the PR) is preserved here as the canonical DX entry.",
-    "noticeOfRelatedWork": "eSpeak NG ph_japanese (GPL-3.0) was not consulted for these values; tunings are independently derived by ear by .hecko and RAYTRAC3R.",
+    "source": "Vowel formant values contributed by .hecko on the klattsch Discord, May 2026.",
     "phonemes": {
       "I": {
         "voicing": 1,
@@ -106,7 +105,7 @@ export const bundled = {
     "language": "ja-JP",
     "license": "MIT",
     "extends": "klatt1980-en",
-    "source": "Vowel F1/F2/F3 and BW1/BW2/BW3 are corpus means computed across all 550 measurements per vowel (5 adult male native speakers from the ETL-WD-I/II balanced word dataset, 22 words per vowel, 5 steady-state frames per word) reported in Mokhtari, P. & Tanaka, K. (2000). \"A Corpus of Japanese Vowel Formant Patterns.\" Bulletin of the Electrotechnical Laboratory (ETL), Vol. 64, Special Issue, 57-66. Raw data file: https://web.archive.org/web/20240811224814/https://isd.pu-toyama.ac.jp/~parham/documents/formantsETL/MokhtariTanaka2000_ETLformantdata.txt . Frequencies and bandwidths rounded to the nearest Hz. Mokhtari & Tanaka covers vowels only; the alveolar tap (DX) is reproduced from the ja-hecko-2026 bank with credit to .hecko on the klattsch Discord.",
+    "source": "\"A Corpus of Japanese Vowel Formant Patterns.\" Bulletin of the Electrotechnical Laboratory (ETL), Vol. 64, Special Issue, 57-66. Raw data file: https://web.archive.org/web/20240811224814/https://isd.pu-toyama.ac.jp/~parham/documents/formantsETL/MokhtariTanaka2000_ETLformantdata.txt . Frequencies and bandwidths rounded to the nearest Hz. Mokhtari & Tanaka covers vowels only; the alveolar tap (DX) is reproduced from the ja-hecko-2026 bank with credit to .hecko on the klattsch Discord.",
     "phonemes": {
       "I": {
         "voicing": 1,
