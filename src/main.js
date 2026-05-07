@@ -1,6 +1,13 @@
 // Page-specific glue
 import { compileString } from './engine/sequencer.js';
-import { PHONEME_KEYS } from './engine/phonemes.js';
+import { banks } from './engine/banks/index.js';
+
+const BANK_STORAGE_KEY = 'klattsch.preferredBank';
+function loadSelectedBank() {
+  const saved = localStorage.getItem(BANK_STORAGE_KEY);
+  return saved && banks.list().includes(saved) ? saved : banks.defaultName;
+}
+let selectedBank = loadSelectedBank();
 import { encodeWav } from './engine/wav.js';
 
 const seqInput   = document.getElementById('seq');
@@ -220,6 +227,7 @@ function compileOpts() {
     aspiration:   Number(aspSlider.value),
     tilt:         Number(tiltSlider.value),
     effort:       Number(effortSlider.value),
+    bank:         selectedBank,
   };
 }
 
@@ -666,14 +674,17 @@ function buildExampleSpan(s) {
 
 function buildPhonemeButtons() {
   phonemesDiv.replaceChildren();
-  for (const code of PHONEME_KEYS) {
+  const resolved = banks.get(selectedBank) ?? banks.get(banks.defaultName);
+  const codes = Object.keys(resolved.phonemes).filter((k) => !k.startsWith('_'));
+  for (const code of codes) {
     const b = document.createElement('button');
     const codeSpan = document.createElement('div');
     codeSpan.className = 'phoneme-code';
     codeSpan.textContent = code;
     const exSpan = document.createElement('div');
     exSpan.className = 'phoneme-example';
-    exSpan.appendChild(buildExampleSpan(PHONEME_EXAMPLES[code] ?? ''));
+    const example = PHONEME_EXAMPLES[code] ?? resolved.phonemes[code]?.example ?? '';
+    exSpan.appendChild(buildExampleSpan(example));
     b.appendChild(codeSpan);
     b.appendChild(exSpan);
     b.addEventListener('click', () => speak(code));
@@ -681,7 +692,34 @@ function buildPhonemeButtons() {
   }
 }
 
+function buildBankSelect() {
+  const sel = document.getElementById('bank-select');
+  if (!sel) return;
+  sel.replaceChildren();
+  for (const name of banks.list()) {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = `${name} - ${banks.get(name).displayName}`;
+    if (name === selectedBank) opt.selected = true;
+    sel.appendChild(opt);
+  }
+  sel.addEventListener('change', () => {
+    selectedBank = sel.value;
+    localStorage.setItem(BANK_STORAGE_KEY, selectedBank);
+    buildPhonemeButtons();
+    updateBankHint();
+  });
+  updateBankHint();
+}
+
+function updateBankHint() {
+  const hint = document.getElementById('bank-hint');
+  if (!hint) return;
+  hint.textContent = `mid-utterance: [bank=${selectedBank}] / [bank] resets`;
+}
+
 buildPhonemeButtons();
+buildBankSelect();
 
 function trySpeak(text) {
   speak(text).catch(err => {

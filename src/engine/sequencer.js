@@ -1,6 +1,6 @@
 // Phoneme-string parser and schedule compiler
 
-import { phonemes } from './phonemes.js';
+import { banks, resolveBank } from './banks/index.js';
 
 const PAUSE_MS = { ',': 100, ';': 200, '.': 300 };
 
@@ -58,6 +58,10 @@ function classifyPart(part) {
   if (part === ')') return { type: 'syllable_close' };
   if (part in PAUSE_MS) return { type: 'pause', ms: PAUSE_MS[part] };
   if (part === '!' || part === "'") return { type: 'stress_mark' };
+
+  const bankSwitch = part.match(/^\[bank=([A-Za-z0-9_.\-]+)\]$/);
+  if (bankSwitch) return { type: 'bank_switch', name: bankSwitch[1] };
+  if (part === '[bank]') return { type: 'bank_reset' };
 
   const bracket = part.match(/^\[(\w+)=(-?\d+(?:\.\d+)?)\]$/);
   if (bracket) {
@@ -178,6 +182,9 @@ export function compile(parsed, opts = {}) {
   const initialAspiration  = opts.aspiration ?? 0;
   const initialTilt        = opts.tilt ?? 0;
   const initialEffort      = opts.effort ?? 0.5;
+  const registry           = opts.registry ?? banks;
+  const initialPhonemes    = resolveBank(opts.bank, registry).phonemes;
+  let phonemes             = initialPhonemes;
   let f0           = initialBaseF0;
   let rate         = initialRate;
   let scale        = initialScale;
@@ -297,6 +304,20 @@ export function compile(parsed, opts = {}) {
   for (const t of tokens) {
     if (t.type === 'unknown') {
       warnings.push(`unknown token: ${t.text}`);
+      continue;
+    }
+
+    if (t.type === 'bank_switch') {
+      const target = registry.get(t.name);
+      if (!target) {
+        warnings.push(`unknown bank: ${t.name}`);
+        continue;
+      }
+      phonemes = target.phonemes;
+      continue;
+    }
+    if (t.type === 'bank_reset') {
+      phonemes = initialPhonemes;
       continue;
     }
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>klattsch - primitive formant synth</title>
-  <link rel="stylesheet" href="src/style.css?v=0.3.3">
+  <link rel="stylesheet" href="src/style.css?v=0.4.0">
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -46,6 +46,12 @@
     ·
     <a href="https://cash.app/$tgies" target="_blank" rel="noopener">cashapp</a>
   </p>
+
+  <section class="announce">
+    <span class="announce-label">new</span>
+    <span class="announce-body">japanese vowels are in.</span>
+    <a class="announce-cta" href="#bank-select">phoneme bank dropdown →</a>
+  </section>
 
   <section class="announce">
     <span class="announce-label">new</span>
@@ -128,6 +134,8 @@
   gN                   vocal effort (0 lax .. 1 tense; 0.5 default)
   g+N    g-N    g      relative / reset
   [base=N] etc.        verbose form, equivalent to bN, rN, pN, sN
+  [bank=NAME]          switch active phoneme bank for subsequent phonemes
+  [bank]               reset active phoneme bank to the initial selection
   # rest of line       comment
   /* ... */            block comment (can span multiple lines)
 
@@ -180,6 +188,11 @@ examples
 
     <fieldset>
       <legend>audition phonemes</legend>
+      <div class="row bank-select-row">
+        <label for="bank-select">phoneme bank</label>
+        <select id="bank-select"></select>
+        <span id="bank-hint" class="bank-hint"></span>
+      </div>
       <div id="phonemes" class="row"></div>
     </fieldset>
 
@@ -259,6 +272,12 @@ examples
       <button type="button" class="changelog-close" aria-label="close">close</button>
     </div>
     <div class="changelog-body">
+      <h3>v0.4.0</h3>
+      <ul>
+        <li>phoneme banks: layered tables with per-call selection and a UI dropdown above the audition row</li>
+        <li>first non-English bank: japanese vowels and the alveolar tap, with two tunings (.hecko on discord, Mokhtari &amp; Tanaka 2000 corpus means)</li>
+        <li>mid-utterance <code>[bank=NAME]</code> directive switches active bank for subsequent phonemes; bare <code>[bank]</code> resets</li>
+      </ul>
       <h3>v0.3.0</h3>
       <ul>
         <li>karaoke playback: live display under the textarea highlights the active phrase as audio runs</li>
@@ -310,6 +329,6 @@ examples
     </div>
   </aside>
 
-  <script type="module" src="src/main.js?v=0.3.2"></script>
+  <script type="module" src="src/main.js?v=0.4.0"></script>
 </body>
 </html>

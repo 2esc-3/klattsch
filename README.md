@@ -100,6 +100,7 @@ node.port.postMessage({ type: 'schedule', schedule });
 - Hillenbrand et al. (1995). *Acoustic characteristics of American English vowels.*
 - Rosenberg, A. E. (1971). *Effect of glottal pulse shape on the quality of natural vowels.*
 - Robinson, R. Bristow-Johnson. *Audio EQ Cookbook.*
+- Mokhtari, P. & Tanaka, K. (2000). *A Corpus of Japanese Vowel Formant Patterns.* Bulletin of the Electrotechnical Laboratory (ETL), Vol. 64, Special Issue, 57-66. ([project page](https://isd.pu-toyama.ac.jp/~parham/sp_FormantDataETL.html), [data file](https://web.archive.org/web/20240811224814/https://isd.pu-toyama.ac.jp/~parham/documents/formantsETL/MokhtariTanaka2000_ETLformantdata.txt)) - source of the Japanese vowel formants in the `ja-mokhtari-2000` phoneme bank.
 
 ## See also
 
