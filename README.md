@@ -1,5 +1,7 @@
 # klattsch
 
+##Added: Spanish Phonemes
+
 A primitive parallel-formant speech synthesizer in the browser. Late-70s / early-80s tier (Votrax, SAM).
 
 The name is a portmanteau of *Klatt* (Dennis Klatt, the formant-synth pioneer) and *Klatsch* (German for gossip / casual chat).
